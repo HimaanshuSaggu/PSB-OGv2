@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sensor Status</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #ffffff;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    nav {
+      background: linear-gradient(to right, #ff8400, #ffac53);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #37474f;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff8400, #ffac53);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 1em;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 220px);
+      gap: 60px;
+      justify-content: center;
+    }
+
+    .circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.2em;
+      font-weight: bold;
+      margin: 0 auto;
+      cursor: pointer;
+      border: 4px solid #ffac53;
+      background-color: grey;
+      color: #37474f;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+      position: relative;
+    }
+
+    .circle:hover:not(.locked) {
+      transform: scale(1.08);
+    }
+
+    .active { background-color: #46c646; }
+    .inactive { background-color: grey; }
+    .locked { background-color: red; cursor: not-allowed; }
+
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 3px solid #ffac53;
+      border-radius: 10px;
+      padding: 10px;
+      width: 160px;
+      text-align: left;
+      font-size: 0.85em;
+      color: #333;
+      display: none;
+      z-index: 500;
+    }
+
+    .tooltip img {
+      width: 100%;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    footer {
+      background-color: #ffb770;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .link-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .link-grid a {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #fa9b00;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      font-weight: 500;
+    }
+
+    .link-grid a:hover {
+      background-color: #37474f;
+    }
+
+    footer p {
+      font-size: 0.9em;
+      opacity: 0.85;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Ourpast.html">Our Past</a>
+    <a href="looting.html">Looting</a>
+    <a href="vandalism.html">Vandalism</a>
+    <a href="protecting.html">Protecting</a>
+    <a href="solution.html">Proposed Solution</a>
+    <a href="sensors.html">Sensor Status</a>
+    <a href="about.html">About Us</a>
+  </nav>
+
+  <header>
+    <h1>Sensor Status</h1>
+    <p>All system sensors data - Interactive</p>
+  </header>
+
+  <main>
+    <div class="grid">
+
+      <div style="position:relative;">
+        <div class="circle active" id="A">A</div>
+        <div class="tooltip" style="left:-180px; top:20px;">
+          Latitude: -10.892032<br>
+          Longitude: -77.521890<br>
+          Live pov -
+          <img src="robber.png" />
+        </div>
+        <div class="label" id="A-label">🔧 A sensor: Active ⚙️</div>
+      </div>
+
+      <div style="position:relative;">
+        <div class="circle locked" id="B">B</div>
+        <div class="tooltip" style="left:-180px; top:20px;">
+          Latitude: -10.892501<br>
+          Longitude: -77.521860<br>
+          Live pov -
+          <img src="animal.png" />
+        </div>
+
+        <div class="label">🔧 B sensor: Motor not detected ⚙️</div>
+      </div>
+
+      <div style="position:relative;">
+        <div class="circle inactive" id="C">C</div>
+        <div class="tooltip" style="left:-180px; top:20px;">
+          Latitude: -10.892380<br>
+          Longitude: -77.521672<br>
+          Live pov -
+          <img src="animal.png" />
+        </div>
+        <div class="label" id="C-label">🔧 C sensor: Inactive ⚙️</div>
+      </div>
+
+      <div style="position:relative;">
+        <div class="circle active" id="D">D</div>
+        <div class="tooltip" style="left:-180px; top:20px;">
+          Latitude -10.892040<br>
+          Longitude -77.521890<br>
+          Live pov -
+          <img src="bird.png" />
+        </div>
+        <div class="label" id="D-label">🔧 D sensor: Active ⚙️</div>
+      </div>
+
+    </div>
+  </main>
+
+<footer>
+  <h3>Learn More from Trusted Sources</h3>
+  <div class="link-grid">
+    <a href="https://courier.unesco.org/en/articles/archaeology-living-past" target="_blank">UNESCO Heritage Protection</a> 
+    <a href="https://www.archaeological.org" target="_blank">Archaeological Institute of America</a>
+    <a href="https://www.iccrom.org" target="_blank">ICCROM</a>
+    <a href="https://www.smithsonianmag.com/history/" target="_blank">Smithsonian History</a>
+    <a href="https://www.nationalgeographic.com/history/" target="_blank">National Geographic History</a>
+  </div>
+    <p>Images in the public domain.</p>
+    <p>© 2025 Protecting Our Past Project | Built with ❤️ by Power Surge Blast Robotics</p>
+</footer>
+
+<script>
+// Toggle active/inactive
+function toggle(id) {
+  const circle = document.getElementById(id);
+  const label = document.getElementById(id + "-label");
+  if (circle.classList.contains("locked")) return;
+
+  const active = circle.classList.contains("active");
+  circle.classList.toggle("active", !active);
+  circle.classList.toggle("inactive", active);
+
+  label.textContent = active
+    ? `🔧 ${id} sensor: Inactive ⚙️`
+    : `🔧 ${id} sensor: Active ⚙️`;
+}
+
+// Enable clicking for A, C, D
+["A", "C", "D"].forEach(id => {
+  document.getElementById(id).addEventListener("click", () => toggle(id));
+});
+
+// TOOLTIP LOGIC — A, C, D show tooltips
+["A", "C", "D"].forEach(id => {
+  const circle = document.getElementById(id);
+  const tooltip = circle.parentElement.querySelector('.tooltip');
+
+  circle.addEventListener('mouseenter', () => {
+    if (!circle.classList.contains('inactive')) tooltip.style.display = 'block';
+  });
+
+  circle.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+});
+
+// B sensor — NEVER show tooltip
+const Bcircle = document.getElementById('B');
+const Btooltip = Bcircle.parentElement.querySelector('.tooltip');
+Btooltip.style.display = 'none';
+Bcircle.addEventListener('mouseenter', () => { Btooltip.style.display = 'none'; });
+Bcircle.addEventListener('mouseleave', () => { Btooltip.style.display = 'none'; });
+</script>
+
+
+
